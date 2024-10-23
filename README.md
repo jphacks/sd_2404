@@ -1,5 +1,4 @@
-# サンプル（プロダクト名）
-
+# Test
 [![IMAGE ALT TEXT HERE](https://jphacks.com/wp-content/uploads/2024/07/JPHACKS2024_ogp.jpg)](https://www.youtube.com/watch?v=DZXUkEj-CSI)
 
 ## 製品概要
@@ -19,7 +18,7 @@
 ## 開発技術
 ### 活用した技術
 #### API・データ
-* 
+* OpenAI API
 * 
 
 #### フレームワーク・ライブラリ・モジュール
