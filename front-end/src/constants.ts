@@ -1,5 +1,5 @@
 const SWATCHES = [
-    "#ffffff",  // white
+    "#f5f5f5",  // white
     "#fab005",  // yellow
     "#fd7e14",  // orange
     "#ee3333",  // red
