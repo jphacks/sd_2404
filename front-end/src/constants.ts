@@ -1,5 +1,7 @@
 const SWATCHES = [
     "#ffffff",  // white
+    "#fab005",  // yellow
+    "#fd7e14",  // orange
     "#ee3333",  // red
     "#e64980",  // pink
     "#be4bdb",  // purple
@@ -8,8 +10,8 @@ const SWATCHES = [
     "#3333ee",  // dark blue
     "#40c057",  // green
     "#00aa00",  // dark green
-    "#fab005",  // yellow
-    "#fd7e14",  // orange
+    "#495057",  // gray
+    "#343a40"   // dark gray
 ]
 
 export { SWATCHES };

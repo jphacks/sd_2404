@@ -19,7 +19,7 @@ interface Response {
 export default function Home() {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [isDrawing, setIsDrawing] = useState(false);
-    const [color, setColor] = useState('rgb(255, 255, 255)');
+    const [color, setColor] = useState('rgb(0, 0, 0)');
     const [reset, setReset] = useState(false);
     const [dictOfVars, setDictOfVars] = useState({});
     const [result, setResult] = useState<GeneratedResult>();
@@ -33,9 +33,9 @@ export default function Home() {
     // });
 
     useEffect(() => {
-        if (latexExpression.length > 0 && window.MathJax) {
+        if (latexExpression.length > 0 && (window as any).MathJax) {
             setTimeout(() => {
-                window.MathJax.Hub.Queue(["Typeset", window.MathJax.Hub]);
+                (window as any).MathJax.Hub.Queue(["Typeset", (window as any).MathJax.Hub]);
             }, 0);
         }
     }, [latexExpression]);
@@ -75,7 +75,7 @@ export default function Home() {
         document.head.appendChild(script);
 
         script.onload = () => {
-            window.MathJax.Hub.Config({
+            (window as any).MathJax.Hub.Config({
                 tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]},
             });
         };
@@ -87,7 +87,9 @@ export default function Home() {
     }, []);
 
     const renderLatexToCanvas = (expression: string, answer: string) => {
-        const latex = `\\(\\LARGE{${expression} = ${answer}}\\)`;
+        const formattedExpression = expression.replace(/ /g, '\\;');
+        // const formattedAnswer = answer.replace(/ /g, '\\;');
+        const latex = `\\(\\LARGE{${formattedExpression} = ${answer}}\\)`;
         setLatexExpression([...latexExpression, latex]);
 
         // Clear the main canvas
@@ -114,7 +116,7 @@ export default function Home() {
     const startDrawing = (e: React.MouseEvent<HTMLCanvasElement>) => {
         const canvas = canvasRef.current;
         if (canvas) {
-            canvas.style.background = 'black';
+            canvas.style.background = 'white';
             const ctx = canvas.getContext('2d');
             if (ctx) {
                 ctx.beginPath();
@@ -172,7 +174,12 @@ export default function Home() {
             for (let y = 0; y < canvas.height; y++) {
                 for (let x = 0; x < canvas.width; x++) {
                     const i = (y * canvas.width + x) * 4;
-                    if (imageData.data[i + 3] > 0) {  // If pixel is not transparent
+                    
+                    const red = imageData.data[i];
+                    const green = imageData.data[i + 1];
+                    const blue = imageData.data[i + 2];
+                    
+                    if (!(red > 240 && green > 240 && blue > 240)) {  // If pixel is not transparent
                         minX = Math.min(minX, x);
                         minY = Math.min(minY, y);
                         maxX = Math.max(maxX, x);
@@ -205,7 +212,7 @@ export default function Home() {
                     variant='default' 
                     color='black'
                 >
-                    Reset
+                    リーセット　Reset
                 </Button>
                 <Group className='z-20'>
                     {SWATCHES.map((swatch) => (
@@ -218,7 +225,7 @@ export default function Home() {
                     variant='default'
                     color='white'
                 >
-                    Run
+                    実行　Run
                 </Button>
             </div>
             <canvas
@@ -235,9 +242,9 @@ export default function Home() {
                 <Draggable
                     key={index}
                     defaultPosition={latexPosition}
-                    onStop={(e, data) => setLatexPosition({ x: data.x, y: data.y })}
+                    onStop={(_, data) => setLatexPosition({ x: data.x, y: data.y })}
                 >
-                    <div className="absolute p-2 text-white rounded shadow-md">
+                    <div className="absolute p-2 text-black rounded shadow-md">
                         <div className="latex-content">{latex}</div>
                     </div>
                 </Draggable>
