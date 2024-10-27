@@ -1,4 +1,6 @@
-# プロジェクトセットアップガイド (Scroll down to see english setup guide)
+# プロジェクトセットアップガイド 
+
+Scroll down to see english setup guide
 
 ## 前提条件
 このプロジェクトを実行する前に、以下のものがインストールされていることを確認してください：
